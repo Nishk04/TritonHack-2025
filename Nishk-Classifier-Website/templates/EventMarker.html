@@ -1,5 +1,29 @@
 <!DOCTYPE html>
 <html>
-    <title>event</title>
-    
+<head>
+  <title>Event Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+
+<body>
+  <div id="map" style="height: 600px;"></div>
+  
+  <script>
+    const map = L.map('map').setView([0, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+    fetch('/get_events')
+      .then(res => res.json())
+      .then(events => {
+        events.forEach(event => {
+          L.marker([event.lat, event.lng])
+            .addTo(map)
+            .bindPopup(event.name);
+        });
+      });
+  </script>
+  
+</body>
+
 </html>
