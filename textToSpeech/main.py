@@ -56,7 +56,7 @@ async def process_buffer():
                     prompt = f"""
                     Analyze the following text and extract words or phrases that match the following categories:
                     - Emergency Type (e.g., fire, medical, crime)
-                    - Address (e.g., city names, street names, landmarks)
+                    - Address (e.g., city names, street names, landmarks) 
                     - Condition (e.g., health status, emotional state)
                     - Time of emergency (e.g., morning, evening, specific times)
                     Return the results in a structured format, e.g.:
