@@ -11,4 +11,4 @@ app.secret_key = "hello"
 if __name__ == '__main__':
 # Debug set to true allows the website to automatically refresh as we change the code
 # Default port is 5000
-    app.run(debug=True, port=8000)
+    app.run(debug=True, use_reloader=False, port=8000)
