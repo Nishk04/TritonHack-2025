@@ -4,13 +4,12 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 # Use name of file: view
 views = Blueprint(__name__, "views")
 
-webpages = ['transcriber']
-
+webpages = ['transcriber.html', 'index.html', 'EventMarker.html']
 
 @views.route("/")
-def home():
+def home(): # Home page
     return render_template("index.html")
 
 @views.route("/EventMarker")
 def eventmarker():
-    return render_template("Event_Marker.html")
+    return render_template("EventMarker.html")
