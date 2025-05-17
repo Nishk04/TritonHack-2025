@@ -12,7 +12,7 @@
   <script>
     const map = L.map('map').setView([0, 0], 2);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
+    
     fetch('/get_events')
       .then(res => res.json())
       .then(events => {
@@ -22,8 +22,12 @@
             .bindPopup(event.name);
         });
       });
+
+    //marker
+    var singleMarker = L.marker([50.5, 30.5]);
+    singleMarker.addTo(map);
   </script>
-  
+
 </body>
 
 </html>
