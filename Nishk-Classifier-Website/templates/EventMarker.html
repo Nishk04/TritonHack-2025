@@ -26,6 +26,8 @@
     //marker
     var singleMarker = L.marker([50.5, 30.5]);
     singleMarker.addTo(map);
+    var popup = singleMarker.bindPopup("This is a popup");
+    popup.addTo(map);
   </script>
 
 </body>
