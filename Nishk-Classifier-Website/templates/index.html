@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>First-Responder Hub</title>
-  <link rel="stylesheet" href="base.css" />
+    <meta charset="UTF-8">
+    <title>First-Responder Report Center</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
 </head>
 <body>
-  <header>
-    <h1 class="site-title">First-Responder Hub</h1>
-    <a href="login.html" class="login-button">Login</a>
-  </header>
 
-  <main class="main-content">
-    <div class="button-container">
-      <a href="call.html" class="action-button call">Call - Emergency</a>
-      <a href="report.html" class="action-button report">Report Emergency</a>
+    <div class="navbar">
+        <h1>First-Responder Report Center</h1>
     </div>
-  </main>
+
+    <div class="container">
+        <div class="button-section">
+            <div>
+                <button class="action-button call-button" onclick="startCall()">Call</button>
+                <div class="button-label">Start an emergency audio call</div>
+            </div>
+
+            <div>
+                <button class="action-button upload-button" onclick="uploadImage()">Upload Image</button>
+                <div class="button-label">Upload image of the incident</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startCall() {
+            alert("Start call logic here.");
+        }
+
+        function uploadImage() {
+            alert("Image upload logic here.");
+        }
+    </script>
+
 </body>
 </html>
