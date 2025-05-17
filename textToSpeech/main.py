@@ -58,12 +58,12 @@ async def process_buffer():
                     - Emergency Type: Identify types of emergencies (e.g., fire, medical, crime).
                     - Address: Identify any address-related information, such as landmarks (e.g., 'UCSD'), institutions, street names, or city names. For landmarks or institutions, return a single, complete address including street name, city, state, and ZIP code (e.g., for 'UCSD', return '9500 Gilman Drive, La Jolla, CA 92093'). If a full or partial address is provided, include street, city, state, and ZIP code if possible. Return a single address string formatted with commas separating components. Do not return the raw landmark name unless no address can be resolved.
                     - Condition: Identify health status or emotional state (e.g., injured, unconscious, panicked).
-                    - Time of emergency: Identify time-related information (e.g., morning, evening, specific times like '10 minutes ago').
+                    - Time of emergency: Identify time-related information (e.g., morning, evening, specific times like '5:30 A.M.' always have a space between the time (5:30) and the type (A.M. or P.M.)).
                     Return the results in a structured format, e.g.:
                     Emergency Type: fire
                     Address: 9500 Gilman Drive, La Jolla, CA 92093
                     Condition: injured
-                    Time of emergency: 10 minutes ago
+                    Time of emergency: 5:30 A.M. 
                     If no matches, return "None" for that category.
                     Text: "{text}"
                     """
