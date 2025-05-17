@@ -25,10 +25,24 @@
       });
 
     //marker
-    var singleMarker = L.marker([50.5, 30.5]);
+    let x = 50.05;
+    let y = 30.5;
+    L.Control.geocoder().addTo(map);
+    
+    var geocoder = L.Control.Geocoder.nominatim();
+    geocoder.geocode("1600 Pennsylvania Ave NW, Washington, DC 20500", function(results) {
+        var result = results[0];
+        if(result){
+            L.marker(result.center).addTo(map).bindPopup(result.name).openPopup();
+            map.setView(result.center, 13);
+        }
+    })
+    
+    var singleMarker = L.marker([x, y]);
     singleMarker.addTo(map);
-    var popup = singleMarker.bindPopup("This is a popup");
-    popup.addTo(map);
+    
+    //var popup = singleMarker.bindPopup();
+    //popup.addTo(map);
 
     //Google Map Layer
     googleStreets = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',{
@@ -37,7 +51,7 @@
     });
     googleStreets.addTo(map);
 
-    L.Control.geocoder().addTo(map);
+    
 
   </script>
 
