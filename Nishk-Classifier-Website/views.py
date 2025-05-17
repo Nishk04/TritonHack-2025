@@ -13,4 +13,4 @@ def home():
 
 @views.route("/EventMarker")
 def eventmarker():
-    return render_template("Event_Marker.html")
+    return render_template("EventMarker.html")
