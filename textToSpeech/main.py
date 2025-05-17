@@ -50,32 +50,36 @@ async def process_buffer():
             # Combine buffered transcripts
             text = " ".join(transcript_buffer)
             if text.strip():
-                #print(f"\nProcessing buffer: {text}")
+                print(f"\nProcessing buffer: {text}")
                 try:
                     # Prompt for Gemini to ask for a return that fits the category_state
                     prompt = f"""
                     Analyze the following text and extract words or phrases that match the following categories:
-                    - Emergency Type (e.g., fire, medical, crime)
-                    - Address (e.g., city names, street names, landmarks) 
-                    - Condition (e.g., health status, emotional state)
-                    - Time of emergency (e.g., morning, evening, specific times)
+                    - Emergency Type: Identify types of emergencies (e.g., fire, medical, crime).
+                    - Address: Identify any address-related information, such as landmarks (e.g., 'UCSD'), institutions, street names, or city names. For landmarks or institutions, return a single, complete address including street name, city, state, and ZIP code (e.g., for 'UCSD', return '9500 Gilman Drive, La Jolla, CA 92093'). If a full or partial address is provided, include street, city, state, and ZIP code if possible. Return a single address string formatted with commas separating components. Do not return the raw landmark name unless no address can be resolved.
+                    - Condition: Identify health status or emotional state (e.g., injured, unconscious, panicked).
+                    - Time of emergency: Identify time-related information (e.g., morning, evening, specific times like '10 minutes ago').
                     Return the results in a structured format, e.g.:
-                    Emergency Type: [list of matches]
-                    Address: [list of matches]
-                    Condition: [list of matches]
-                    Time of emergency: [list of matches]
+                    Emergency Type: fire
+                    Address: 9500 Gilman Drive, La Jolla, CA 92093
+                    Condition: injured
+                    Time of emergency: 10 minutes ago
                     If no matches, return "None" for that category.
                     Text: "{text}"
                     """
                     response = model.generate_content(prompt)
                     if response.text.strip():
                         print(f"New Matches:\n{response.text}")
-                        # If there is a value that is not None, keep it the same
+                        # Process Gemini response
                         for line in response.text.split("\n"):
                             if ":" in line:
                                 category, value = map(str.strip, line.split(":", 1))
                                 if category in category_state and value != "None" and value:
                                     category_state[category] = value
+                                    # Warn if Address lacks expected components
+                                    if category == "Address":
+                                        if not all(x in value for x in [",", " "]) or len(value.split(",")) < 3:
+                                            print(f"Warning: Address '{value}' may be incomplete (missing street, city, state, or ZIP).")
                     else:
                         print("New Matches: None")
                 except Exception as e:
