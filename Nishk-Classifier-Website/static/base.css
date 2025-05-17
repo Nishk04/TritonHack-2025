@@ -1,98 +1,60 @@
 /* base.css */
 
-:root {
-    --primary-color: #0a1f44; /* Dark Blue */
-    --text-color: #ffffff;
-    --accent-color: #1e90ff;
-    --hover-color: #0d3a78;
-  }
-  
-  * {
+body {
     margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  body {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  header {
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+
+.navbar {
+    background-color: #007BFF; /* Blue top bar */
+    color: white;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    background-color: var(--hover-color);
-  }
-  
-  .site-title {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .login-button {
-    text-decoration: none;
-    color: var(--text-color);
-    background-color: var(--accent-color);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: background-color 0.3s;
-  }
-  
-  .login-button:hover {
-    background-color: var(--hover-color);
-  }
-  
-  .main-content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .button-container {
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.container {
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
     align-items: center;
-  }
-  
-  .action-button {
-    text-decoration: none;
-    color: var(--text-color);
-    background-color: var(--accent-color);
+}
+
+.button-section {
+    margin-top: 3rem;
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-button {
     padding: 1rem 2rem;
-    border-radius: 10px;
-    font-size: 1.5rem;
-    font-weight: 600;
-    width: 250px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+    width: 160px;
+}
+
+.call-button {
+    background-color: #28a745; /* Green */
+}
+
+.upload-button {
+    background-color: #dc3545; /* Red */
+}
+
+.button-label {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
     text-align: center;
-    transition: background-color 0.3s, transform 0.2s;
-  }
-  
-  .action-button:hover {
-    background-color: var(--hover-color);
-    transform: scale(1.05);
-  }
-  
-  .call {
-    background-color: #dc3545;
-  }
-  
-  .call:hover {
-    background-color: #a71d2a;
-  }
-  
-  .report {
-    background-color: #28a745;
-  }
-  
-  .report:hover {
-    background-color: #1c7430;
-  }
-  
+}
