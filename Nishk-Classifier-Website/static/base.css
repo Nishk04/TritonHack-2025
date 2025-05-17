@@ -3,11 +3,11 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: white;
+    background-color: rgb(17, 15, 15);
 }
 
 .navbar {
-    background-color: #007BFF; /* Blue top bar */
+    background-color: #0858ad; /* Blue top bar */
     color: white;
     padding: 1rem 2rem;
     display: flex;
