@@ -5,6 +5,7 @@ import google.generativeai as genai
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions
 from dotenv import load_dotenv
 from datetime import datetime
+import csv
 
 # Load environment variables from .env file
 load_dotenv()
@@ -22,11 +23,14 @@ FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
 
+timeOutTime = 30
+
 # Buffer for collecting transcripts
 transcript_buffer = []
 last_processed = datetime.now()
 
-# Persistent category state
+# Categories for different factors the program is looking for
+# Defaulted to none
 category_state = {
     "Emergency Type": None,
     "Address": None,
@@ -41,14 +45,14 @@ model = genai.GenerativeModel("gemini-1.5-flash")
 async def process_buffer():
     global transcript_buffer, last_processed
     while True:
-        await asyncio.sleep(2)  # Process every 2 seconds
+        await asyncio.sleep(2)  # Process request every 2 seconds to Gemini API
         if transcript_buffer and (datetime.now() - last_processed).total_seconds() >= 2:
             # Combine buffered transcripts
             text = " ".join(transcript_buffer)
             if text.strip():
-                print(f"\nProcessing buffer: {text}")
+                #print(f"\nProcessing buffer: {text}")
                 try:
-                    # Define prompt for Gemini
+                    # Prompt for Gemini to ask for a return that fits the category_state
                     prompt = f"""
                     Analyze the following text and extract words or phrases that match the following categories:
                     - Emergency Type (e.g., fire, medical, crime)
@@ -66,7 +70,7 @@ async def process_buffer():
                     response = model.generate_content(prompt)
                     if response.text.strip():
                         print(f"New Matches:\n{response.text}")
-                        # Update persistent categories
+                        # If there is a value that is not None, keep it the same
                         for line in response.text.split("\n"):
                             if ":" in line:
                                 category, value = map(str.strip, line.split(":", 1))
@@ -124,7 +128,6 @@ async def transcribe_audio():
         )
 
         # Start the connection
-        print("Attempting to connect to Deepgram...")
         dg_connection.start(options)
 
         # Initialize PyAudio
@@ -150,7 +153,7 @@ async def transcribe_audio():
                     dg_connection.send(data)
                     await asyncio.sleep(0.01)  # Prevent blocking
 
-            await asyncio.wait_for(stream_audio(), timeout=30)
+            await asyncio.wait_for(stream_audio(), timeout=timeOutTime)  # set timeout ~30 seconds
 
         except asyncio.TimeoutError:
             print("\n30-second timeout reached. Stopping...")
@@ -165,6 +168,12 @@ async def transcribe_audio():
             audio.terminate()
             # Print final category state
             print("Final State: " + ", ".join(f"{k}: {v if v else 'None'}" for k, v in category_state.items()))
+            # Save final state to CSV
+            with open("data.csv", "w", newline="") as f:
+                writer = csv.DictWriter(f, fieldnames=category_state.keys())
+                writer.writeheader()
+                writer.writerow({k: v if v else "None" for k, v in category_state.items()})
+            print("Final state saved to data.csv")
 
     except Exception as e:
         print(f"Exception occurred: {e}")
