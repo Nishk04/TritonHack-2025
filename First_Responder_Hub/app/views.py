@@ -31,15 +31,10 @@ def start_call():
     return jsonify({'status': 'Transcription started.'})
 
 @views.route("/dashboard", methods=["POST"])
-def new_incident():
-    data = request.json
-    if not data:
-        return jsonify({"error": "No data received"}), 400
-
-    # Store incident
-    incidents.append(data)
-    print(f"New incident added: {data}")
-    return jsonify({"status": "Incident added successfully", "incident": data}), 200
+def new_incident(index):
+    if index < 0 or index >= len(incidents):
+        return "Incident not found", 404
+    return render_template("incident_detail.html", incident=incidents[index])
 
 @views.route('/get_incidents', methods=['GET'])
 def get_incidents():

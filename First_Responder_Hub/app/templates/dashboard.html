@@ -1,0 +1,26 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Incident Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+  <div class="header">Dashboard</div>
+  <div class="dashboard">
+    {% for incident in incidents %}
+      <form action="{{ url_for('incident_detail', index=loop.index0) }}" method="get">
+        <button type="submit">
+          {{ incident['Emergency Type'] }} — {{ incident['Address'] }}
+        </button>
+      </form>
+    {% else %}
+      <p style="text-align:center;">No incidents reported yet.</p>
+    {% endfor %}
+  </div>
+
+</body>
+</html>

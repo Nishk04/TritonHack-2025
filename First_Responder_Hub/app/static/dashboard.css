@@ -1,0 +1,34 @@
+/* dashboard.css */
+
+.header {
+  background-color: #004aad;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 2em;
+}
+
+.dashboard {
+  background-color: #eee;
+  width: 500px;
+  margin: 40px auto;
+  padding: 40px 20px;
+  border-radius: 30px;
+}
+
+.dashboard button {
+  display: block;
+  width: 100%;
+  padding: 20px;
+  margin: 20px 0;
+  font-size: 1.2em;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dashboard button:hover {
+  background-color: #ddd;
+}

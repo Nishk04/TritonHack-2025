@@ -1,8 +1,38 @@
-<h1>Incident List</h1>
-<ul>
-  {% for incident in incidents %}
-  <li>
-    <strong>{{ incident.title }}</strong> - {{ incident.location }} - {{ incident.condition }} - {{ incident.time }}
-  </li>
-  {% endfor %}
-</ul>
+<!-- templates/incident_detail.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Incident Detail</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/incident.css') }}">
+</head>
+<body>
+
+  <div class="section-title">Emergency Info</div>
+  <div class="emergency-page">
+    <div class="flex-container">
+      <div class="info-box">
+        <p><strong>Location:</strong> {{ incident['Address'] }}</p>
+        <p><strong>Time:</strong> {{ incident['Time of Emergency'] }}</p>
+        <p><strong>Emergency:</strong> {{ incident['Emergency Type'] }}</p>
+        <p><strong>Caller:</strong> Unknown</p>
+        <p><strong>Possible Cause:</strong> {{ incident.get('Condition', 'N/A') }}</p>
+      </div>
+      <div class="images">
+        <h3>Images:</h3>
+        <div class="image-placeholder"></div>
+        <div class="image-placeholder"></div>
+      </div>
+    </div>
+    <br>
+    <div class="plan-box">
+      <strong>Possible Plan of Action:</strong> TBD based on emergency type
+    </div>
+    <a href="{{ url_for('dashboard') }}">
+      <button class="nav-button">Back to Dashboard</button>
+    </a>
+  </div>
+
+</body>
+</html>
