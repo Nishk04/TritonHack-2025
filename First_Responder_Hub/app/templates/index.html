@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First-Responder Report Center</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>First-Responder Report Center</h1>
+    </div>
+
+    <div class="container">
+        <div class="button-section">
+            <div>
+                <button class="action-button call-button" onclick="startCall()">Call</button>
+                <div class="button-label">Start an emergency audio call</div>
+            </div>
+
+            <div>
+                <button class="action-button upload-button" onclick="uploadImage()">Upload Image</button>
+                <div class="button-label">Upload image of the incident</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startCall() {
+            alert("Start call logic here.");
+        }
+
+        function uploadImage() {
+            alert("Image upload logic here.");
+        }
+    </script>
+
+</body>
+</html>

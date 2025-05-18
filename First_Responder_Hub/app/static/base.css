@@ -1,0 +1,60 @@
+/* base.css */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: rgb(17, 15, 15);
+}
+
+.navbar {
+    background-color: #0858ad; /* Blue top bar */
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button-section {
+    margin-top: 3rem;
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+    width: 160px;
+}
+
+.call-button {
+    background-color: #28a745; /* Green */
+}
+
+.upload-button {
+    background-color: #dc3545; /* Red */
+}
+
+.button-label {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+}
