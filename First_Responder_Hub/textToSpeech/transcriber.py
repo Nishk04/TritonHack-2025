@@ -31,7 +31,8 @@ category_state = {
     "Emergency Type": None,
     "Address": None,
     "Condition": None,
-    "Time of emergency": None
+    "Time of emergency": None,
+    "Notes" : None
 }
 
 # Configure Gemini model
@@ -53,11 +54,13 @@ async def process_buffer():
                     - Address: Identify any address-related information, institutions, street names, or city names. (e.g., 11569 Swan Lake Drive) Look up the rest of the info about the City, State, and zip code and separate it with commas as shown in the example below.
                     - Condition: Identify health status or emotional state (e.g., injured, unconscious, panicked).
                     - Time of emergency: Identify time-related information (e.g., morning, evening, specific times like '5:30 A.M.' always have a space between the time (5:30) and the type (A.M. or P.M.)).
+                    - Other Notes: Any other notes that the person may be saying like describing the scene of the event (e.g. - fire on the east side of the building possibly due to gas leakage)
                     Return the results in a structured format, e.g.:
                     Emergency Type: fire
                     Address: 11569 Swan Lake Dr, San Diego, CA 92131
                     Condition: injured
                     Time of emergency: 5:30 A.M.
+                    Notes: Fire on the East side of the restuarant
                     If no matches, return "None" for that category.
                     Text: "{text}"
                     """
@@ -154,7 +157,8 @@ async def transcribe_audio():
                     "title": category_state["Emergency Type"],
                     "location": category_state["Address"],
                     "condition": category_state["Condition"],
-                    "time": category_state["Time of emergency"]
+                    "time": category_state["Time of emergency"],
+                    "notes": category_state["Notes"]
                 })
                 print("Server response:", response.json())
             except Exception as e:
