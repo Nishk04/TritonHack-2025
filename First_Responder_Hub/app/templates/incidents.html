@@ -13,12 +13,11 @@
   <div class="emergency-page">
     <div class="flex-container">
       <div class="info-box">
-       <p><strong>Location:</strong> {{ incident['location'] }}</p>
-        <p><strong>Time:</strong> {{ incident['time'] }}</p>
-        <p><strong>Emergency:</strong> {{ incident['title'] }}</p>
+        <p><strong>Location:</strong> {{ incident['Address'] }}</p>
+        <p><strong>Time:</strong> {{ incident['Time of Emergency'] }}</p>
+        <p><strong>Emergency:</strong> {{ incident['Emergency Type'] }}</p>
         <p><strong>Caller:</strong> Unknown</p>
-        <p><strong>Possible Condition:</strong> {{ incident['condition'] }}</p>
-        <p><strong>Notes:</strong> {{ incident['notes'] }}</p>
+        <p><strong>Possible Cause:</strong> {{ incident.get('Condition', 'N/A') }}</p>
       </div>
       <div class="images">
         <h3>Images:</h3>
