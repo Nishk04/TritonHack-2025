@@ -38,7 +38,7 @@
     L.Control.geocoder().addTo(map);
     
     var geocoder = L.Control.Geocoder.nominatim();
-    geocoder.geocode("1600 Pennsylvania Ave NW, Washington, DC 20500", function(results) {
+    geocoder.geocode("13535 Grain Ln, San Diego, 92129", function(results) {
         console.log(results);
         var result = results[0];
         if(result){
