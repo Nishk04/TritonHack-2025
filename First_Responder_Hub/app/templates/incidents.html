@@ -1,4 +1,27 @@
-<!-- templates/incident_detail.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Incidents</title>
+</head>
+<body>
+    <h1>Incident List</h1>
+    {% if incidents %}
+        <ul>
+        {% for i, incident in enumerate(incidents) %}
+            <li>
+                <a href="{{ url_for('views.incident_detail', index=i) }}">
+                    {{ incident['Emergency Type'] }} at {{ incident['Address'] }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No incidents reported yet.</p>
+    {% endif %}
+</body>
+</html>
+
+<!-- templates/incident_detail.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,4 +58,4 @@
   </div>
 
 </body>
-</html>
+</html> -->
