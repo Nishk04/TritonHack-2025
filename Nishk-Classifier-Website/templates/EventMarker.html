@@ -24,6 +24,13 @@
         });
       });
 
+    //Google Map Layer
+    googleStreets = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+    });
+    googleStreets.addTo(map);
+
     //marker
     let x = 50.05;
     let y = 30.5;
@@ -43,13 +50,6 @@
     
     //var popup = singleMarker.bindPopup();
     //popup.addTo(map);
-
-    //Google Map Layer
-    googleStreets = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',{
-    maxZoom: 20,
-    subdomains:['mt0','mt1','mt2','mt3']
-    });
-    googleStreets.addTo(map);
 
     
 
