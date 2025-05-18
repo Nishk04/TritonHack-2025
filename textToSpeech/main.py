@@ -6,6 +6,7 @@ from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions
 from dotenv import load_dotenv
 from datetime import datetime
 import csv
+import keyboard
 
 # Load environment variables from .env file
 load_dotenv()
@@ -90,6 +91,14 @@ async def process_buffer():
             transcript_buffer = []
             last_processed = datetime.now()
 
+async def check_keyboard(stop_event):
+    while not stop_event.is_set():
+        if keyboard.is_pressed('q'):
+            print("Stopping...")
+            stop_event.set()
+            break
+        await asyncio.sleep(0.1)  
+
 async def transcribe_audio():
     try:
         if not DEEPGRAM_API_KEY or not GOOGLE_API_KEY:
@@ -148,11 +157,15 @@ async def transcribe_audio():
 
         # Start buffer processing task
         buffer_task = asyncio.create_task(process_buffer())
+        # Create an event to signal stopping
+        stop_event = asyncio.Event()
+        # Start keyboard monitoring task
+        keyboard_task = asyncio.create_task(check_keyboard(stop_event))
 
         # Stream audio to Deepgram with timeout
         try:
             async def stream_audio():
-                while True:
+                while not stop_event.is_set():
                     data = stream.read(CHUNK, exception_on_overflow=False)
                     dg_connection.send(data)
                     await asyncio.sleep(0.01)  # Prevent blocking
@@ -166,6 +179,7 @@ async def transcribe_audio():
         finally:
             # Clean up
             buffer_task.cancel()
+            keyboard_task.cancel()
             dg_connection.finish()
             stream.stop_stream()
             stream.close()
