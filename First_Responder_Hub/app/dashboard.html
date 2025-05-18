@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff;
+    }
+
+    /* Header Bar */
+    .header {
+      background-color: #004aad;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 2em;
+    }
+
+    /* Container for dashboard buttons */
+    .dashboard {
+      background-color: #eee;
+      width: 500px;
+      margin: 40px auto;
+      padding: 40px 20px;
+      border-radius: 30px;
+    }
+
+    .dashboard button {
+      display: block;
+      width: 100%;
+      padding: 20px;
+      margin: 20px 0;
+      font-size: 1.2em;
+      border-radius: 10px;
+      border: 1px solid #000;
+      background-color: #fff;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dashboard button:hover {
+      background-color: #ddd;
+    }
+
+    /* Emergency Info Page */
+    .emergency-page {
+      padding: 30px;
+    }
+
+    .section-title {
+      background-color: #004aad;
+      color: red;
+      text-align: center;
+      font-size: 2em;
+      padding: 20px;
+    }
+
+    .flex-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 40px;
+      justify-content: center;
+    }
+
+    .info-box, .plan-box {
+      background-color: #eee;
+      padding: 20px;
+      border-radius: 30px;
+      font-size: 1.1em;
+      width: 250px;
+    }
+
+    .plan-box {
+      height: 200px;
+    }
+
+    .images {
+      text-align: center;
+    }
+
+    .images h3 {
+      margin-bottom: 20px;
+    }
+
+    .image-placeholder {
+      width: 150px;
+      height: 150px;
+      background-color: #999;
+      border-radius: 20px;
+      margin: 10px;
+      display: inline-block;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .nav-button {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dashboard Page -->
+  <div id="dashboardPage">
+    <div class="header">Dashboard</div>
+    <div class="dashboard">
+      <button onclick="goToEmergencyPage()">Emergency Info</button>
+      <button onclick="alert('Another action')">Button 2</button>
+      <button onclick="alert('Yet another action')">Button 3</button>
+    </div>
+  </div>
+
+  <!-- Emergency Info Page -->
+  <div id="emergencyPage" class="hidden">
+    <div class="section-title">Emergency Info</div>
+    <div class="emergency-page">
+      <div class="flex-container">
+        <div class="info-box">
+          <p><strong>Location:</strong></p>
+          <p><strong>Time:</strong></p>
+          <p><strong>Emergency:</strong></p>
+          <p><strong>Caller:</strong></p>
+          <p><strong>Possible Cause:</strong></p>
+        </div>
+        <div class="images">
+          <h3>Images:</h3>
+          <div class="image-placeholder"></div>
+          <div class="image-placeholder"></div>
+        </div>
+      </div>
+      <br>
+      <div class="plan-box">
+        <strong>Possible Plan of Action:</strong>
+      </div>
+      <button class="nav-button" onclick="goToDashboard()">Back to Dashboard</button>
+    </div>
+  </div>
+
+  <script>
+    function goToEmergencyPage() {
+      document.getElementById('dashboardPage').classList.add('hidden');
+      document.getElementById('emergencyPage').classList.remove('hidden');
+    }
+
+    function goToDashboard() {
+      document.getElementById('emergencyPage').classList.add('hidden');
+      document.getElementById('dashboardPage').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
