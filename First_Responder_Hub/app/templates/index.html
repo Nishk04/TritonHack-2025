@@ -14,7 +14,7 @@
     <div class="container">
         <div class="button-section">
             <div>
-                <button id="callBtn">Start Call</button>
+                <button onclick="startCall()">Start Emergency Call</button>
                 <script>
                 document.getElementById('callBtn').addEventListener('click', () => {
                     fetch('/start-call', { method: 'POST' })
@@ -39,8 +39,18 @@
     </div>
 
     <script>
-        function startCall() {
-            alert("Start call logic here.");
+        async function startCall() {
+          const response = await fetch("/start-call", { method: "POST" });
+          const result = await response.json();
+          console.log(result.status);
+
+          // Show loading UI
+          document.body.innerHTML = "<h2>Transcribing... Please wait.</h2>";
+
+          // Wait 30 seconds (match your timeout)
+          setTimeout(() => {
+            window.location.href = "/dashboard";
+          }, 32000);
         }
 
         function uploadImage() {

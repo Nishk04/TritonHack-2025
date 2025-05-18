@@ -1,8 +1,60 @@
-<h1>Incident List</h1>
-<ul>
-  {% for incident in incidents %}
-  <li>
-    <strong>{{ incident.title }}</strong> - {{ incident.location }} - {{ incident.condition }} - {{ incident.time }}
-  </li>
-  {% endfor %}
-</ul>
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Incidents</title>
+</head>
+<body>
+    <h1>Incident List</h1>
+    {% if incidents %}
+        <ul>
+        {% for i, incident in enumerate(incidents) %}
+            <li>
+                <a href="{{ url_for('views.incident_detail', index=i) }}">
+                    {{ incident['Emergency Type'] }} at {{ incident['Address'] }}
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No incidents reported yet.</p>
+    {% endif %}
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Incident Detail</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='incident.css') }}">
+</head>
+<body>
+
+  <div class="section-title">Emergency Info</div>
+  <div class="emergency-page">
+    <div class="flex-container">
+      <div class="info-box">
+        <p><strong>Location:</strong> {{ incident['location'] }}</p>
+        <p><strong>Time:</strong> {{ incident['time'] }}</p>
+        <p><strong>Emergency:</strong> {{ incident['title'] }}</p>
+        <p><strong>Caller:</strong> Unknown</p>
+        <p><strong>Possible Cause:</strong> {{ incident.get('Condition', 'N/A') }}</p>
+      </div>
+      <div class="images">
+        <h3>Images:</h3>
+        <div class="image-placeholder"></div>
+        <div class="image-placeholder"></div>
+      </div>
+    </div>
+    <br>
+    <div class="plan-box">
+      <strong>Possible Plan of Action:</strong> TBD based on emergency type
+    </div>
+    <a href="{{ url_for('views.dashboard') }}">
+      <button class="nav-button">Back to Dashboard</button>
+    </a>
+  </div>
+
+</body>
+</html>

@@ -1,11 +1,24 @@
 import asyncio
 import os
+import uuid
 import pyaudio
 import requests
 import google.generativeai as genai
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions
 from dotenv import load_dotenv
 from datetime import datetime
+import sys
+import os
+
+# Get absolute path to the project root (assuming 'data.py' is there)
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Add project root to sys.path if it's not already there
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+# Now you can import data
+from shared_data.data import incidents
 
 # Load environment variables from .env file
 load_dotenv()
@@ -150,19 +163,17 @@ async def transcribe_audio():
 
             print("Final State: " + ", ".join(f"{k}: {v if v else 'None'}" for k, v in category_state.items()))
             
-            # Send to Flask server as JSON
-            try:
-                print("Sending data to Flask server...")
-                response = requests.post("http://127.0.0.1:8000/new_incident", json={
-                    "title": category_state["Emergency Type"],
-                    "location": category_state["Address"],
-                    "condition": category_state["Condition"],
-                    "time": category_state["Time of emergency"],
-                    "notes": category_state["Notes"]
-                })
-                print("Server response:", response.json())
-            except Exception as e:
-                print("Error sending incident to server:", e)
+            # Directly update shared incident list
+            incident = {
+                 "id": str(uuid.uuid4()),  # use import uuid for unique IDs
+                "title": category_state["Emergency Type"],
+                "location": category_state["Address"],
+                "condition": category_state["Condition"],
+                "time": category_state["Time of emergency"],
+                "notes": category_state["Notes"]
+            }
+            incidents.append(incident)
+            print("Incident added to in-memory list.")
 
     except Exception as e:
         print(f"Exception occurred: {e}")
