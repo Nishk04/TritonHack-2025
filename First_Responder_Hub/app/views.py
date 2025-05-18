@@ -30,7 +30,7 @@ def start_call():
     
     return jsonify({'status': 'Transcription started.'})
 
-@views.route("/new_incident", methods=["POST"])
+@views.route("/dashboard", methods=["POST"])
 def new_incident():
     data = request.json
     if not data:
