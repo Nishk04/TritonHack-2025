@@ -1,5 +1,61 @@
 <!DOCTYPE html>
 <html>
-    <title>Nishk evendddt</title>
+<head>
+  <title>Event Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+</head>
+
+<body>
+  <div id="map" style="height: 600px;"></div>
+  
+  <script>
+    const map = L.map('map').setView([0, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
     
+    fetch('/get_events')
+      .then(res => res.json())
+      .then(events => {
+        events.forEach(event => {
+          L.marker([event.lat, event.lng])
+            .addTo(map)
+            .bindPopup(event.name);
+        });
+      });
+
+    //Google Map Layer
+    googleStreets = L.tileLayer('http://{s}.google.com/vt?lyrs=m&x={x}&y={y}&z={z}',{
+    maxZoom: 20,
+    subdomains:['mt0','mt1','mt2','mt3']
+    });
+    googleStreets.addTo(map);
+
+    //marker
+    let x = 50.05;
+    let y = 30.5;
+    L.Control.geocoder().addTo(map);
+    
+    var geocoder = L.Control.Geocoder.nominatim();
+    geocoder.geocode("13535 Grain Lane, San Diego, California, USA", function(results) {
+        console.log(results);
+        var result = results[0];
+        if(result){
+            L.marker(result.center).addTo(map).bindPopup(result.name).openPopup();
+        }
+    })
+    
+    var singleMarker = L.marker([50.5, 30.5]);
+    singleMarker.addTo(map);
+    
+    //var popup = singleMarker.bindPopup();
+    //popup.addTo(map);
+
+    
+
+  </script>
+
+</body>
+
 </html>
