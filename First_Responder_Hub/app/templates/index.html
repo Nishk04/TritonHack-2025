@@ -14,7 +14,15 @@
     <div class="container">
         <div class="button-section">
             <div>
-                <button class="action-button call-button" onclick="startCall()">Call</button>
+                <button id="callBtn">Start Call</button>
+                <script>
+                document.getElementById('callBtn').addEventListener('click', () => {
+                fetch('/start-call', { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => alert(data.status))
+                    .catch(err => alert('Error starting transcription'));
+                });
+                </script>
                 <div class="button-label">Start an emergency audio call</div>
             </div>
 
