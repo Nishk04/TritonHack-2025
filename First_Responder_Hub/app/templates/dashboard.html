@@ -9,12 +9,12 @@
 </head>
 <body>
 
-  <div class="header">Dashboard</div>
+  <div class="header">Dashboard</div> 
   <div class="dashboard">
     {% for incident in incidents %}
       <form action="{{ url_for('incident_detail', index=loop.index0) }}" method="get">
         <button type="submit">
-          {{ incident['Emergency Type'] }} — {{ incident['Address'] }}
+          {{ incident.title }} — {{ incident.location }}
         </button>
       </form>
     {% else %}

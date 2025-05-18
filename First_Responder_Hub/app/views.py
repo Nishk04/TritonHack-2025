@@ -5,13 +5,12 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from textToSpeech import transcriber
 from textToSpeech.transcriber import run_transcriber
-
+from data import incidents
 # This file carries all the routes so it doesn't clutter the main file
 
 # Use name of file: view
 views = Blueprint(__name__, "views")
-incidents = []  
-transcription_thread = None #global thread
+transcription_thread = None # global thread
 
 @views.route("/")
 def home(): # Home page for users
@@ -30,16 +29,17 @@ def start_call():
     
     return jsonify({'status': 'Transcription started.'})
 
-@views.route("/dashboard", methods=["POST"])
-def new_incident(index):
+@views.route("/incident/<int:index>")
+def incident_detail(index):
     if index < 0 or index >= len(incidents):
         return "Incident not found", 404
     return render_template("incident_detail.html", incident=incidents[index])
 
 @views.route('/get_incidents', methods=['GET'])
 def get_incidents():
-    return jsonify(incidents), 200
+    return jsonify(incidents)
 
-@views.route("/incidents")
-def incident_list():
-    return render_template("incidents.html", incidents=incidents)
+@views.route("/dashboard")
+def dashboard():
+    return render_template('dashboard.html', incidents=incidents)
+
