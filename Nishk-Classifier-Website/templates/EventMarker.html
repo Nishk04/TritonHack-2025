@@ -3,8 +3,9 @@
 <head>
   <title>Event Map</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 </head>
 
 <body>
@@ -38,9 +39,9 @@
     
     var geocoder = L.Control.Geocoder.nominatim();
     geocoder.geocode("1600 Pennsylvania Ave NW, Washington, DC 20500", function(results) {
-        //var result = results[0];
+        var result = results[0];
         if(result){
-            L.marker(results.x, results.y).addTo(map).bindPopup(result.name).openPopup();
+            L.marker(result.center).addTo(map).bindPopup(result.name).openPopup();
         }
     })
     
