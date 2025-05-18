@@ -1,0 +1,8 @@
+<h1>Incident List</h1>
+<ul>
+  {% for incident in incidents %}
+  <li>
+    <strong>{{ incident.title }}</strong> - {{ incident.location }} - {{ incident.condition }} - {{ incident.time }}
+  </li>
+  {% endfor %}
+</ul>
