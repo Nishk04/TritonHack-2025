@@ -5,6 +5,10 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from textToSpeech import transcriber
 from textToSpeech.transcriber import run_transcriber
+import sys
+import os
+# Adds the outermost directory (firstresponderhub) to the system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from data import incidents
 # This file carries all the routes so it doesn't clutter the main file
 

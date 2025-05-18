@@ -7,6 +7,10 @@ import google.generativeai as genai
 from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions
 from dotenv import load_dotenv
 from datetime import datetime
+import sys
+import os
+# Adds the outermost directory (firstresponderhub) to the system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from data import incidents
 
 # Load environment variables from .env file
