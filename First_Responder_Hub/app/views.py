@@ -2,11 +2,20 @@ from flask import Blueprint, render_template, request, redirect, url_for, sessio
 import threading
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Get absolute path to the project root (assuming 'data.py' is there)
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Add project root to sys.path if it's not already there
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+# Now you can import data
+from shared_data.data import incidents
+
 from textToSpeech import transcriber
 from textToSpeech.transcriber import run_transcriber
 
-from data import incidents
 # This file carries all the routes so it doesn't clutter the main file
 
 # Use name of file: view
@@ -34,7 +43,7 @@ def start_call():
 def incident_detail(index):
     if index < 0 or index >= len(incidents):
         return "Incident not found", 404
-    return render_template("incident_detail.html", incident=incidents[index])
+    return render_template("incidents.html", incident=incidents[index])
 
 @views.route('/get_incidents', methods=['GET'])
 def get_incidents():

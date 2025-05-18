@@ -9,9 +9,16 @@ from dotenv import load_dotenv
 from datetime import datetime
 import sys
 import os
-# Adds the outermost directory (firstresponderhub) to the system path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from data import incidents
+
+# Get absolute path to the project root (assuming 'data.py' is there)
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
+# Add project root to sys.path if it's not already there
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+# Now you can import data
+from shared_data.data import incidents
 
 # Load environment variables from .env file
 load_dotenv()
