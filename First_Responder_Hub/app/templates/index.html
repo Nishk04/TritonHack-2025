@@ -17,10 +17,15 @@
                 <button id="callBtn">Start Call</button>
                 <script>
                 document.getElementById('callBtn').addEventListener('click', () => {
-                fetch('/start-call', { method: 'POST' })
-                    .then(response => response.json())
+                    fetch('/start-call', { method: 'POST' })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(err => { throw new Error(err); });
+                        }
+                        return response.json();
+                    })
                     .then(data => alert(data.status))
-                    .catch(err => alert('Error starting transcription'));
+                    .catch(err => alert('Error starting transcription: ' + err.message));
                 });
                 </script>
                 <div class="button-label">Start an emergency audio call</div>
@@ -42,6 +47,47 @@
             alert("Image upload logic here.");
         }
     </script>
-
+    <div id="incidents-container" style="margin-top: 20px;"></div>
+    <script>
+        async function fetchIncidents() {
+          try {
+            const response = await fetch('/get_incidents');
+            const data = await response.json();
+            displayIncidents(data);
+          } catch (error) {
+            console.error('Error fetching incidents:', error);
+          }
+        }
+      
+        function displayIncidents(incidents) {
+          const container = document.getElementById('incidents-container');
+          container.innerHTML = ''; // clear old
+      
+          if (incidents.length === 0) {
+            container.innerHTML = '<p>No incidents reported yet.</p>';
+            return;
+          }
+      
+          incidents.forEach(incident => {
+            const incidentDiv = document.createElement('div');
+            incidentDiv.classList.add('incident');
+      
+            incidentDiv.innerHTML = `
+              <h3>${incident.title || 'Unknown Emergency'}</h3>
+              <p><strong>Location:</strong> ${incident.location || 'N/A'}</p>
+              <p><strong>Condition:</strong> ${incident.condition || 'N/A'}</p>
+              <p><strong>Time:</strong> ${incident.time || 'N/A'}</p>
+            `;
+      
+            container.appendChild(incidentDiv);
+          });
+        }
+      
+        // Fetch incidents every 5 seconds
+        setInterval(fetchIncidents, 5000);
+        // Initial fetch
+        fetchIncidents();
+      </script>
+      
 </body>
 </html>

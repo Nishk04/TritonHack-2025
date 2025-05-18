@@ -2,7 +2,7 @@
 <ul>
   {% for incident in incidents %}
   <li>
-    <strong>{{ incident.emergency_type }}</strong> - {{ incident.address }} - {{ incident.condition }} - {{ incident.time_of_emergency }}
+    <strong>{{ incident.title }}</strong> - {{ incident.location }} - {{ incident.condition }} - {{ incident.time }}
   </li>
   {% endfor %}
 </ul>
