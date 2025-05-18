@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Incidents</title>
@@ -19,9 +19,8 @@
         <p>No incidents reported yet.</p>
     {% endif %}
 </body>
-</html>
+</html> -->
 
-<!-- templates/incident_detail.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,9 +35,9 @@
   <div class="emergency-page">
     <div class="flex-container">
       <div class="info-box">
-        <p><strong>Location:</strong> {{ incident['Address'] }}</p>
-        <p><strong>Time:</strong> {{ incident['Time of Emergency'] }}</p>
-        <p><strong>Emergency:</strong> {{ incident['Emergency Type'] }}</p>
+        <p><strong>Location:</strong> {{ incident['location'] }}</p>
+        <p><strong>Time:</strong> {{ incident['time'] }}</p>
+        <p><strong>Emergency:</strong> {{ incident['title'] }}</p>
         <p><strong>Caller:</strong> Unknown</p>
         <p><strong>Possible Cause:</strong> {{ incident.get('Condition', 'N/A') }}</p>
       </div>
@@ -58,4 +57,4 @@
   </div>
 
 </body>
-</html> -->
+</html>
