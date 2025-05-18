@@ -38,10 +38,9 @@
     
     var geocoder = L.Control.Geocoder.nominatim();
     geocoder.geocode("1600 Pennsylvania Ave NW, Washington, DC 20500", function(results) {
-        var result = results[0];
+        //var result = results[0];
         if(result){
-            L.marker(result.center).addTo(map).bindPopup(result.name).openPopup();
-            map.setView(result.center, 13);
+            L.marker(results.x, results.y).addTo(map).bindPopup(result.name).openPopup();
         }
     })
     
